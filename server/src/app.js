@@ -9,7 +9,7 @@ import logger from './config/logger.js';
 const app = express();
 
 // ── CORS ─────────────────────────────────────────────────────────────────
-app.use(cors({ origin: '*', credentials: true }));
+app.use(cors({ origin: '*' }));
 
 // ── Body Parsing ──────────────────────────────────────────────────────────
 app.use(express.json());
