@@ -9,8 +9,9 @@ const start = async () => {
   await connectDB();
   startScheduler();
 
-  app.listen(config.port, () => {
-    logger.info(`🚀 BeforeBook server running on http://localhost:${config.port}`);
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, '0.0.0.0', () => {
+    logger.info(`🚀 BeforeBook server running on port ${PORT}`);
     logger.info(`   Environment: ${config.nodeEnv}`);
   });
 };
