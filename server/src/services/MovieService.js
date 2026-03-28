@@ -30,6 +30,7 @@ const getUpcomingMovies = async () => {
         'primary_release_date.gte': today,
         'primary_release_date.lte': nextMonthStr,
         sort_by: 'primary_release_date.asc',
+        with_origin_country: 'IN',
         with_release_type: '2|3', // Theatrical releases
         page: 1,
       },
