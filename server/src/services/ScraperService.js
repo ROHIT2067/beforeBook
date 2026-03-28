@@ -28,14 +28,7 @@ const CITY_SLUGS = {
   goa: 'goa',
 };
 
-/**
- * Returns a BookMyShow movie search URL for a given movie name and city.
- */
-const buildUrl = (movieName, city) => {
-  const citySlug = CITY_SLUGS[city.toLowerCase()] || city.toLowerCase().replace(/\s+/g, '-');
-  const movieSlug = movieName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-  return `https://in.bookmyshow.com/explore/movies-${citySlug}`;
-};
+
 
 /**
  * Scrapes BookMyShow to check if showtimes are available for a given movie+city.
