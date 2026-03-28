@@ -17,11 +17,20 @@ const FALLBACK_MOVIES = [
  */
 const getUpcomingMovies = async () => {
   try {
-    const { data } = await axios.get(`${config.tmdb.baseUrl}/movie/upcoming`, {
+    const today = new Date().toISOString().split('T')[0];
+    const nextMonth = new Date();
+    nextMonth.setMonth(nextMonth.getMonth() + 1);
+    const nextMonthStr = nextMonth.toISOString().split('T')[0];
+
+    const { data } = await axios.get(`${config.tmdb.baseUrl}/discover/movie`, {
       params: {
         api_key: config.tmdb.apiKey,
         region: 'IN',
         language: 'en-IN',
+        'primary_release_date.gte': today,
+        'primary_release_date.lte': nextMonthStr,
+        sort_by: 'primary_release_date.asc',
+        with_release_type: '2|3', // Theatrical releases
         page: 1,
       },
       timeout: 8000,
@@ -38,11 +47,11 @@ const getUpcomingMovies = async () => {
       vote_average: m.vote_average,
     }));
 
-    logger.info(`[MovieService] Fetched ${movies.length} upcoming movies from TMDB (region=IN)`);
+    logger.info(`[MovieService] Fetched ${movies.length} movies (Release: ${today} to ${nextMonthStr})`);
     return movies;
   } catch (err) {
-    logger.error(`[MovieService] TMDB API error: ${err.message} — using fallback list`);
-    return FALLBACK_MOVIES;
+    logger.error(`[MovieService] TMDB API error: ${err.message} — using correctly sorted fallback list`);
+    return FALLBACK_MOVIES.sort((a, b) => new Date(a.release_date) - new Date(b.release_date));
   }
 };
 
