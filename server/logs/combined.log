@@ -1,0 +1,17 @@
+2026-03-29 01:54:45 [info]: MongoDB connected: ac-c6h7kfp-shard-00-02.hthjuxl.mongodb.net
+2026-03-29 01:54:45 [info]: [Scheduler] Starting with schedule: "*/5 * * * *"
+2026-03-29 01:54:45 [info]: 🚀 BeforeBook server running on http://localhost:3000
+2026-03-29 01:54:45 [info]:    Environment: development
+2026-03-29 01:54:48 [debug]: → GET /api/movies
+2026-03-29 01:54:48 [debug]: → GET /api/track
+2026-03-29 01:54:49 [info]: [MovieService] Fetched 20 upcoming movies from TMDB (region=IN)
+2026-03-29 01:55:00 [info]: [Scheduler] Starting showtime checks…
+2026-03-29 01:55:00 [info]: [Scheduler] Checking 0 pending track(s)
+2026-03-29 01:55:00 [info]: [Scheduler] Tick complete.
+2026-03-29 01:55:19 [debug]: → GET /api/track
+2026-03-29 01:55:27 [debug]: → POST /api/track
+2026-03-29 01:55:27 [info]: [TrackService] Created track: Vaazha II in Kochi for user 98a448a0-1641-4f7c-af47-f84057e9846f
+2026-03-29 01:55:27 [debug]: → GET /api/track
+2026-03-29 01:55:57 [debug]: → GET /api/track
+2026-03-29 01:56:27 [debug]: → GET /api/track
+2026-03-29 01:57:27 [debug]: → GET /api/track

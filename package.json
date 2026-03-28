@@ -1,0 +1,15 @@
+{
+  "name": "beforebook",
+  "version": "1.0.0",
+  "description": "Movie showtime notification app — monorepo",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "install:all": "npm install && npm install --prefix server && npm install --prefix client",
+    "seed": "node server/scripts/seed.js",
+    "build:client": "npm run build --prefix client"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
