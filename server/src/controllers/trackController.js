@@ -2,11 +2,11 @@ import TrackService from '../services/TrackService.js';
 
 export const createTrack = async (req, res, next) => {
   try {
-    const { userId, movieId, movieName, posterPath, city } = req.body;
-    if (!userId || !movieId || !movieName || !city) {
-      return res.status(400).json({ success: false, message: 'Missing required fields: userId, movieId, movieName, city' });
+    const { userId, email, movieId, movieName, posterPath, city } = req.body;
+    if (!userId || !email || !movieId || !movieName || !city) {
+      return res.status(400).json({ success: false, message: 'Missing required fields: userId, email, movieId, movieName, city' });
     }
-    const track = await TrackService.createTrack({ userId, movieId, movieName, posterPath, city });
+    const track = await TrackService.createTrack({ userId, email, movieId, movieName, posterPath, city });
     res.status(201).json({ success: true, data: track });
   } catch (err) {
     if (err.status === 409) {

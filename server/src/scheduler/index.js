@@ -9,7 +9,7 @@ import logger from '../config/logger.js';
 let isRunning = false;
 
 const buildNotificationEmail = (track, showtime) => ({
-  to: config.email.to,
+  to: track.email,
   subject: `🎬 Showtimes Available — ${track.movieName} in ${track.city}!`,
   body: `
     <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">

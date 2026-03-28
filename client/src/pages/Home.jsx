@@ -7,7 +7,7 @@ import TrackButton from '../components/TrackButton';
 import Dashboard from '../components/Dashboard';
 
 export default function Home() {
-  const { userId, selectedMovie, selectedCity, setSelectedMovie, setSelectedCity } = useStore();
+  const { userId, userEmail, selectedMovie, selectedCity, setUserEmail, setSelectedMovie, setSelectedCity } = useStore();
 
   const { data: movies, isLoading: moviesLoading } = useQuery({
     queryKey: ['movies'],
@@ -112,11 +112,27 @@ export default function Home() {
               </div>
             )}
 
-            <div className="space-y-2">
-              <label htmlFor="city-selector" className="text-xs text-white/50 font-medium">
-                City
-              </label>
-              <CitySelector value={selectedCity} onChange={setSelectedCity} />
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <label className="text-xs text-white/50 font-medium ml-1">
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  placeholder="your@email.com"
+                  className="input-select"
+                  value={userEmail}
+                  onChange={(e) => setUserEmail(e.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="city-selector" className="text-xs text-white/50 font-medium ml-1">
+                  City
+                </label>
+                <CitySelector value={selectedCity} onChange={setSelectedCity} />
+              </div>
             </div>
 
             <TrackButton trackedSet={trackedSet} />

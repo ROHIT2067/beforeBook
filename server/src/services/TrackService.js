@@ -5,7 +5,7 @@ import logger from '../config/logger.js';
  * Create a new tracking entry.
  * Also computes estimatedAvailableAt from historical detection logs.
  */
-const createTrack = async ({ userId, movieId, movieName, posterPath, city }) => {
+const createTrack = async ({ userId, email, movieId, movieName, posterPath, city }) => {
   // Prevent duplicate: handled by DB unique index, but check first for a cleaner error
   const existing = await Track.findOne({ userId, movieId, city });
   if (existing) {
@@ -46,6 +46,7 @@ const createTrack = async ({ userId, movieId, movieName, posterPath, city }) => 
 
   const track = new Track({
     userId,
+    email,
     movieId,
     movieName,
     posterPath,

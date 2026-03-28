@@ -11,11 +11,16 @@ const initUserId = () => {
 
 const useStore = create((set, get) => ({
   userId: initUserId(),
+  userEmail: localStorage.getItem('beforebook_userEmail') || '',
   selectedMovie: null,
   selectedCity: '',
 
   setSelectedMovie: (movie) => set({ selectedMovie: movie }),
   setSelectedCity: (city) => set({ selectedCity: city }),
+  setUserEmail: (email) => {
+    localStorage.setItem('beforebook_userEmail', email);
+    set({ userEmail: email });
+  },
   clearSelection: () => set({ selectedMovie: null, selectedCity: '' }),
 }));
 

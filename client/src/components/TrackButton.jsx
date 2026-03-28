@@ -3,7 +3,7 @@ import { createTrack } from '../api/index';
 import useStore from '../store/useStore';
 
 const TrackButton = ({ trackedSet }) => {
-  const { userId, selectedMovie, selectedCity, clearSelection } = useStore();
+  const { userId, userEmail, selectedMovie, selectedCity, clearSelection } = useStore();
   const queryClient = useQueryClient();
 
   const isDuplicate =
@@ -15,6 +15,7 @@ const TrackButton = ({ trackedSet }) => {
     mutationFn: () =>
       createTrack({
         userId,
+        email: userEmail,
         movieId: String(selectedMovie.id),
         movieName: selectedMovie.title,
         posterPath: selectedMovie.poster_path || null,
@@ -26,7 +27,7 @@ const TrackButton = ({ trackedSet }) => {
     },
   });
 
-  const canTrack = selectedMovie && selectedCity && !isDuplicate;
+  const canTrack = selectedMovie && selectedCity && userEmail && !isDuplicate;
 
   return (
     <div className="space-y-2">

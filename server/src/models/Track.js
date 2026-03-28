@@ -11,6 +11,7 @@ const detectionLogSchema = new mongoose.Schema(
 const trackSchema = new mongoose.Schema(
   {
     userId: { type: String, required: true, index: true },
+    email: { type: String, required: true },
     movieId: { type: String, required: true },
     movieName: { type: String, required: true },
     posterPath: { type: String },
