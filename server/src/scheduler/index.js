@@ -37,7 +37,7 @@ const buildNotificationEmail = (track, showtime) => ({
   `,
 });
 
-const runChecks = async () => {
+export const runChecks = async () => {
   // ── Skip if already running ────────────────────────────────────────────
   if (isRunning) {
     logger.debug('[Scheduler] Previous tick still running — skipping this tick.');
@@ -69,10 +69,11 @@ const runChecks = async () => {
           logger.debug(`[Scheduler] Not yet available: "${track.movieName}" in ${track.city}`);
         }
       } catch (err) {
-        logger.error(
-          `[Scheduler] Scraper error for "${track.movieName}" in ${track.city}: ${err.message}`
+        await TrackService.incrementFailure(
+          track._id,
+          config.scheduler.maxScraperFailures,
+          err.message
         );
-        await TrackService.incrementFailure(track._id, config.scheduler.maxScraperFailures);
       }
     }
   } catch (err) {

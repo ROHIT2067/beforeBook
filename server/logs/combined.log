@@ -15,3 +15,27 @@
 2026-03-29 01:55:57 [debug]: → GET /api/track
 2026-03-29 01:56:27 [debug]: → GET /api/track
 2026-03-29 01:57:27 [debug]: → GET /api/track
+2026-03-29 14:30:45 [debug]: [Scraper] Navigating to: https://in.bookmyshow.com/explore/movies-kochi
+2026-03-29 14:30:47 [debug]: [Scraper] Movie "Vaazha II" not found in Kochi listing.
+2026-03-29 14:31:04 [debug]: [Scraper] Navigating to: https://in.bookmyshow.com/explore/movies-kochi
+2026-03-29 14:31:05 [debug]: [Scraper] Movie "Vaazha II" not found in Kochi listing.
+2026-03-29 14:32:10 [debug]: [Scraper] Navigating to: https://in.bookmyshow.com/explore/movies-kochi
+2026-03-29 14:32:12 [debug]: [Scraper] Movie "L o r n" not found in Kochi listing.
+2026-03-29 15:10:35 [info]: [Scheduler] Starting showtime checks…
+2026-03-29 15:10:35 [info]: [Scheduler] Checking 4 pending track(s)
+2026-03-29 15:10:35 [debug]: [Scheduler] Checking: "Vaazha II" in Kochi
+2026-03-29 15:10:36 [debug]: [Scraper] Navigating to: https://in.bookmyshow.com/explore/movies-kochi
+2026-03-29 15:10:37 [debug]: [Scraper] Movie "Vaazha II" not found in Kochi listing.
+2026-03-29 15:10:37 [debug]: [Scheduler] Not yet available: "Vaazha II" in Kochi
+2026-03-29 15:10:37 [debug]: [Scheduler] Checking: "Vaazha II" in Kochi
+2026-03-29 15:10:38 [debug]: [Scraper] Navigating to: https://in.bookmyshow.com/explore/movies-kochi
+2026-03-29 15:10:39 [debug]: [Scraper] Movie "Vaazha II" not found in Kochi listing.
+2026-03-29 15:10:39 [debug]: [Scheduler] Not yet available: "Vaazha II" in Kochi
+2026-03-29 15:10:39 [debug]: [Scheduler] Checking: "L o r n" in Kochi
+2026-03-29 15:10:39 [debug]: [Scraper] Navigating to: https://in.bookmyshow.com/explore/movies-kochi
+2026-03-29 15:10:41 [debug]: [Scraper] Movie "L o r n" not found in Kochi listing.
+2026-03-29 15:10:41 [debug]: [Scheduler] Not yet available: "L o r n" in Kochi
+2026-03-29 15:10:41 [debug]: [Scheduler] Checking: "Vaazha II" in Kochi
+2026-03-29 15:10:41 [debug]: [Scraper] Navigating to: https://in.bookmyshow.com/explore/movies-kochi
+2026-03-29 15:10:42 [debug]: [Scraper] Movie "Vaazha II" not found in Kochi listing.
+2026-03-29 15:10:43 [debug]: [Scheduler] Not yet available: "Vaazha II" in Kochi

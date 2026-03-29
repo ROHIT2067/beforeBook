@@ -25,6 +25,7 @@ const trackSchema = new mongoose.Schema(
     detectionLog: [detectionLogSchema],
     failureCount: { type: Number, default: 0 },
     scraperError: { type: Boolean, default: false },
+    lastErrorMessage: { type: String, default: null },
     estimatedAvailableAt: { type: Date, default: null },
   },
   {

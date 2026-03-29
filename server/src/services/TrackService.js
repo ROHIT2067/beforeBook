@@ -95,7 +95,7 @@ const markNotified = async (trackId, showtimeDetails) => {
     {
       notified: true,
       lastCheckedAt: new Date(),
-      firstShowtimeDetails: showtimeDetails,
+      lastErrorMessage: null, // Clear error on success
       $push: {
         detectionLog: { timestamp: new Date(), result: 'available' },
       },
@@ -110,6 +110,7 @@ const markNotified = async (trackId, showtimeDetails) => {
 const logNotAvailable = async (trackId) => {
   return Track.findByIdAndUpdate(trackId, {
     lastCheckedAt: new Date(),
+    lastErrorMessage: null, // Clear error on successful check
     $push: { detectionLog: { timestamp: new Date(), result: 'not_available' } },
   });
 };
@@ -117,12 +118,13 @@ const logNotAvailable = async (trackId) => {
 /**
  * Increment failure count; set scraperError if threshold reached.
  */
-const incrementFailure = async (trackId, maxFailures) => {
+const incrementFailure = async (trackId, maxFailures, errorMessage = 'Unknown scraper error') => {
   const track = await Track.findById(trackId);
   if (!track) return;
 
   track.failureCount += 1;
   track.lastCheckedAt = new Date();
+  track.lastErrorMessage = errorMessage;
   track.detectionLog.push({ timestamp: new Date(), result: 'error' });
 
   if (track.failureCount >= maxFailures) {

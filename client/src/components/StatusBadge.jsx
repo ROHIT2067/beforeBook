@@ -8,10 +8,17 @@ const FILM_ICON = (
 const StatusBadge = ({ track }) => {
   if (track.scraperError) {
     return (
-      <span className="badge bg-red-500/15 text-red-400 border border-red-500/25">
-        <span className="w-1.5 h-1.5 rounded-full bg-red-400 inline-block" />
-        Check Failed
-      </span>
+      <div className="flex flex-col gap-1">
+        <span className="badge bg-red-500/15 text-red-400 border border-red-500/25">
+          <span className="w-1.5 h-1.5 rounded-full bg-red-400 inline-block" />
+          Check Failed
+        </span>
+        {track.lastErrorMessage && (
+          <span className="text-[10px] text-red-400/60 leading-tight max-w-[200px]">
+            Error: {track.lastErrorMessage}
+          </span>
+        )}
+      </div>
     );
   }
 
