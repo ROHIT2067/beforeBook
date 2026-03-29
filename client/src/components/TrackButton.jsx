@@ -22,8 +22,12 @@ const TrackButton = ({ trackedSet }) => {
         posterPath: selectedMovie.poster_path || null,
         city: selectedCity,
       }),
-    onSuccess: () => {
+    onSettled: () => {
+      // Always refetch tracks after an attempt, even if it failed (e.g. 409 Conflict)
+      // This ensures isDuplicate is updated as fast as possible.
       queryClient.invalidateQueries({ queryKey: ['tracked', userId] });
+    },
+    onSuccess: () => {
       clearSelection();
     },
   });
@@ -35,9 +39,12 @@ const TrackButton = ({ trackedSet }) => {
 
   const canTrack = selectedMovie && selectedCity && userEmail && !isDuplicate;
 
-  // Don't show red error if it's just a "duplicate" conflict (we already show a nice amber msg for that)
+  // Don't show red error if:
+  // 1. It's a duplicate conflict (409)
+  // 2. We already detected a duplicate locally (isDuplicate)
+  // 3. The mutation hasn't fully "finished" its transition yet
   const isConflict = error?.response?.status === 409;
-  const shouldShowError = isError && !isConflict;
+  const shouldShowError = isError && !isConflict && !isDuplicate;
 
   return (
     <div className="space-y-2">
