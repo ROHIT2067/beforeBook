@@ -1,5 +1,6 @@
 import Track from '../models/Track.js';
 import logger from '../config/logger.js';
+import notifier from './EmailProvider.js';
 
 /**
  * Create a new tracking entry.
@@ -56,7 +57,64 @@ const createTrack = async ({ userId, email, movieId, movieName, posterPath, city
 
   await track.save();
   logger.info(`[TrackService] Created track: ${movieName} in ${city} for user ${userId}`);
+
+  // ── Send confirmation email ───────────────────────────────────────────
+  try {
+    const confirmationEmail = buildConfirmationEmail(track);
+    await notifier.send(confirmationEmail);
+    logger.debug(`[TrackService] Sent confirmation email to ${email}`);
+  } catch (err) {
+    logger.error(`[TrackService] Failed to send confirmation email: ${err.message}`);
+    // Non-fatal, we don't throw here to avoid failing the track creation
+  }
+
   return track;
+};
+
+/**
+ * Builds the confirmation email object.
+ */
+const buildConfirmationEmail = (track) => {
+  const estimatedDateStyle = {
+    color: '#6366f1',
+    fontWeight: 'bold',
+  };
+
+  const estimatedInfo = track.estimatedAvailableAt
+    ? `<p>Our current estimate for bookings to open is around: 
+         <span style="color: #6366f1; font-weight: bold;">
+           ${new Date(track.estimatedAvailableAt).toLocaleDateString('en-IN', {
+             day: 'numeric',
+             month: 'short',
+             hour: '2-digit',
+             minute: '2-digit',
+           })}
+         </span>
+       </p>`
+    : '<p>Our system is currently analyzing historical data to estimate when bookings might open.</p>';
+
+  return {
+    to: track.email,
+    subject: `🔔 Reminder Set: ${track.movieName} in ${track.city}`,
+    body: `
+      <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; color: #333;">
+        <h2 style="color: #6366f1;">🔔 Reminder Registered!</h2>
+        <p>Hi there,</p>
+        <p>We've successfully set a reminder for <strong>${track.movieName}</strong> in <strong>${track.city}</strong>.</p>
+        
+        <div style="background: #f3f4f6; padding: 16px; border-radius: 8px; margin: 24px 0;">
+          <h3 style="margin-top: 0; font-size: 16px;">What happens next?</h3>
+          <p style="margin-bottom: 0;">We'll keep a close eye on BookMyShow for you. As soon as we detect any available showtimes, we'll send you an immediate alert so you can book your tickets!</p>
+        </div>
+
+        ${estimatedInfo}
+
+        <p style="margin-top: 24px; font-size: 12px; color: #888;">
+          Sent by BeforeBook — we'll notify you as soon as bookings go live.
+        </p>
+      </div>
+    `,
+  };
 };
 
 /**

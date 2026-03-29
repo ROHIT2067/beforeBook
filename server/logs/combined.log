@@ -39,3 +39,6 @@
 2026-03-29 15:10:41 [debug]: [Scraper] Navigating to: https://in.bookmyshow.com/explore/movies-kochi
 2026-03-29 15:10:42 [debug]: [Scraper] Movie "Vaazha II" not found in Kochi listing.
 2026-03-29 15:10:43 [debug]: [Scheduler] Not yet available: "Vaazha II" in Kochi
+2026-03-29 15:15:30 [info]: [TrackService] Created track: Test Movie 1774777529434 in Kochi for user test-user-1774777529434
+2026-03-29 15:15:34 [info]: [EmailProvider] Email sent: <04366578-5354-0740-d502-ff24b61bfe6a@gmail.com> → rohitkvinod2007@gmail.com
+2026-03-29 15:15:34 [debug]: [TrackService] Sent confirmation email to rohitkvinod2007@gmail.com
