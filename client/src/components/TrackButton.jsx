@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createTrack } from '../api/index';
 import useStore from '../store/useStore';
+import { useEffect } from 'react';
 
 const TrackButton = ({ trackedSet }) => {
   const { userId, userEmail, selectedMovie, selectedCity, clearSelection } = useStore();
@@ -11,7 +12,7 @@ const TrackButton = ({ trackedSet }) => {
       ? trackedSet.has(`${selectedMovie.id}::${selectedCity}`)
       : false;
 
-  const { mutate, isPending, isError, error } = useMutation({
+  const { mutate, isPending, isError, error, reset } = useMutation({
     mutationFn: () =>
       createTrack({
         userId,
@@ -27,7 +28,16 @@ const TrackButton = ({ trackedSet }) => {
     },
   });
 
+  // Reset error state when selection changes
+  useEffect(() => {
+    reset();
+  }, [selectedMovie?.id, selectedCity, reset]);
+
   const canTrack = selectedMovie && selectedCity && userEmail && !isDuplicate;
+
+  // Don't show red error if it's just a "duplicate" conflict (we already show a nice amber msg for that)
+  const isConflict = error?.response?.status === 409;
+  const shouldShowError = isError && !isConflict;
 
   return (
     <div className="space-y-2">
@@ -61,9 +71,9 @@ const TrackButton = ({ trackedSet }) => {
           <strong>{selectedCity}</strong>
         </p>
       )}
-      {isError && (
+      {shouldShowError && (
         <p className="text-xs text-center text-red-400">
-          {error?.response?.data?.message || 'Failed to add reminder. Try again.'}
+          {error?.response?.data?.message || 'Failed to add reminder. Wait and try again.'}
         </p>
       )}
     </div>
